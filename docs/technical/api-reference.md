@@ -1,5 +1,8 @@
 # API Reference
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Base: `GET /api/v1`. Full machine-readable spec: `GET /api/v1/openapi.json`.
 The normative field-level contract for machines is
 [../ai/api-contracts.md](../ai/api-contracts.md) — this page is the human
@@ -43,9 +46,10 @@ Errors keep the same envelope with `data: null` plus an `error` string.
 
 ### SitrepEvent
 `id` deterministic hash · `source` registry id · `category` one of
-`conflict disaster humanitarian political economic cyber infrastructure environment`
+`conflict disaster humanitarian political economic cyber infrastructure environment military health`
 · `severity` `info|low|medium|high|critical` · `location.lat/lon` · `time` ISO ·
-`metrics` source-specific (`magnitude`, `fatalities`, `tone`, `gdacsSeverity`).
+`metrics` source-specific (`magnitude`, `fatalities`, `tone`, `gdacsSeverity`,
+`altitudeFt`, `speedKt`, `detections`, `maxFrpMw`, `score`, `durationSec`).
 
 ### NewsItem
 `id` · `source`/`sourceLabel` · `title` · `link` · `published` ISO ·

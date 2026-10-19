@@ -20,7 +20,7 @@ export const OPENAPI_SPEC = {
       get: {
         summary: 'Normalised geolocated events',
         parameters: [
-          { name: 'category', in: 'query', schema: { type: 'string', enum: ['conflict', 'disaster', 'humanitarian', 'political', 'economic', 'cyber', 'infrastructure', 'environment'] } },
+          { name: 'category', in: 'query', schema: { type: 'string', enum: ['conflict', 'disaster', 'humanitarian', 'political', 'economic', 'cyber', 'infrastructure', 'environment', 'military', 'health'] } },
           { name: 'minSeverity', in: 'query', schema: { type: 'string', enum: ['info', 'low', 'medium', 'high', 'critical'], default: 'info' } },
           { name: 'hours', in: 'query', schema: { type: 'integer', default: 48, maximum: 168 } },
           { name: 'limit', in: 'query', schema: { type: 'integer', default: 100, maximum: 500 } },

@@ -1,5 +1,8 @@
 # Feature Guide
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 ## What Sitrep does, and how sure you should be of it
 
 **Merged wire.** Headlines from BBC, Al Jazeera, The Guardian, DW, France24,
@@ -7,9 +10,12 @@ NPR, UN News and ReliefWeb updates, merged with GDELT's global article crawl.
 Each item keeps its source label — provenance is always visible.
 
 **Geolocated event map.** Earthquakes (USGS), natural events (NASA EONET),
-disaster alerts with official severity levels (GDACS), and conflict-ish news
-located via our built-in place index. Optional sources (ACLED conflict data,
-NewsAPI, ReliefWeb) activate automatically when the deployment has keys.
+disaster alerts with official severity levels (GDACS), US severe-weather
+alerts (NWS), live military aircraft on transponder (adsb.lol), space-weather
+watches (NOAA SWPC), country internet outages (IODA), WHO outbreak notices,
+and conflict-linked news located via our built-in place index. Optional
+sources (ACLED conflict data, NewsAPI, ReliefWeb, NASA FIRMS wildfire
+pixels) activate automatically when the deployment has keys.
 
 **Convergence hotspots.** When two or more *independent* sources light up the
 same area — e.g. a satellite wildfire plus UN alert plus spike in negative

@@ -1,5 +1,7 @@
 # API Contracts
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
 `GET /api/v1/*` — JSON, CORS `*`, no auth for reads. All responses share the
 envelope:
 
@@ -16,14 +18,17 @@ Machine-readable spec: `GET /api/v1/openapi.json` (OpenAPI 3.1).
 ## Endpoints
 
 ### `GET /events`
-Geolocated events, newest first.
-Params: `category` ∈ `conflict|disaster|humanitarian|political|economic|cyber|infrastructure|environment`, `minSeverity` ∈ `info|low|medium|high|critical` (default `info`), `hours` 1–168 (default 48), `limit` ≤500 (default 100).
+Geolocated events, newest first (locationless advisories e.g. space weather
+still appear — they have no `location` field).
+Params: `category` ∈ `conflict|disaster|humanitarian|political|economic|cyber|infrastructure|environment|military|health`, `minSeverity` ∈ `info|low|medium|high|critical` (default `info`), `hours` 1–168 (default 48), `limit` ≤500 (default 100).
 
 `SitrepEvent`:
 ```ts
 { id, source, sourceLabel, category, severity, title, summary?, url?,
   location?: { lat, lon, name?, country? }, time: ISO, tags: string[],
-  metrics?: Record<string,number> }  // e.g. {magnitude}, {fatalities}, {tone}
+  metrics?: Record<string,number> }  // e.g. {magnitude}, {fatalities}, {tone},
+                                    //      {altitudeFt,speedKt}, {detections,maxFrpMw},
+                                    //      {score,durationSec}
 ```
 
 ### `GET /news`

@@ -1,5 +1,8 @@
 # MCP Server
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Sitrep exposes a Model Context Protocol server at `POST {host}/mcp`
 (Streamable HTTP, stateless — no session bootstrap needed).
 

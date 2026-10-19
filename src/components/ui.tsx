@@ -64,6 +64,8 @@ const CAT_STYLE: Record<EventCategory, string> = {
   cyber: 'text-cat-cyber border-cat-cyber/40',
   infrastructure: 'text-cat-infrastructure border-cat-infrastructure/40',
   environment: 'text-cat-environment border-cat-environment/40',
+  military: 'text-cat-military border-cat-military/40',
+  health: 'text-cat-health border-cat-health/40',
 };
 
 export function CategoryTag({ cat }: { cat: EventCategory }) {

@@ -6,6 +6,32 @@ this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased
 
+### Added (2026-10-19 — signal expansion)
+- **New keyless sources:** adsb.lol `/v2/mil` military aircraft tracks (new
+  `military` category, ~129 live tracks), NWS severe-weather alerts
+  (GeoJSON centroid geocoding), NOAA SWPC space-weather watches/warnings
+  (SUM routines filtered), IODA country-scale internet outages
+  (BGP/probing/Google-traffic datasources), WHO outbreak notices
+  (gazetteer-geocoded, >120d items dropped).
+- **New keyed source:** NASA FIRMS VIIRS wildfire cells (`FIRMS_KEY`,
+  pixels aggregated to ~2.5° cells with detection count + peak FRP).
+- **New event categories:** `military`, `health` — through types, params,
+  MCP enum, OpenAPI, map colors, topic chips, and scoring keywords.
+- **RSS wire additions:** WHO News, CISA Advisories (10 feeds total).
+  LiveUAmap rejected at vetting (Cloudflare 403).
+- **Denser deterministic brief:** points carry place + source + age;
+  headline slot restricted to <72h events; new "On watch" section.
+- **Formal program docs:** PRD, TRD, EXECUTED, architecture + knowledge-base
+  index in all four doc sets (ai/ technical/ non-technical/ layman), each
+  stamped with last-updated author + date.
+- `gazetteer.countryCentroid()` — direct country-name → centroid lookup
+  (used by IODA).
+
+### Changed (2026-10-19)
+- Tension fallback damps `military` (×0.3) — routine patrols don't register.
+- `http.ts` UA/overrides unchanged; NWS adapter sends a contactable UA
+  per its terms of service.
+
 ### Fixed
 - **Blank map (critical):** CSP `connect-src`/`img-src` used
   `*.basemaps.cartocdn.com`, which does not cover the bare

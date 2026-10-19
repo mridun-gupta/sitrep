@@ -44,6 +44,8 @@ const CAT_COLOR = ['match', ['get', 'category'],
   'cyber', '#f472b6',
   'infrastructure', '#94a3b8',
   'environment', '#4ade80',
+  'military', '#fde047',
+  'health', '#2dd4bf',
   '#64748b'] as const;
 
 type LayerKey = 'events' | 'signals' | 'hotspots';

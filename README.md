@@ -50,8 +50,10 @@
 | **MCP server** | `/mcp` — plug Sitrep into AI assistants as a live intelligence tool. |
 | **Source health** | `/api/v1/sources` + status drawer — every upstream's live state and capabilities. |
 
-Keyless by default: GDELT · USGS · NASA EONET · GDACS · RSS · markets.
-Env-gated additions: NewsAPI · ACLED · ReliefWeb · Supabase · LLM endpoint.
+Keyless by default: GDELT · USGS · NASA EONET · GDACS · NWS alerts ·
+military ADS-B tracks · NOAA space weather · IODA outages · WHO outbreaks ·
+10-wire RSS · markets. Env-gated additions: NewsAPI · ACLED · ReliefWeb ·
+NASA FIRMS · Supabase · LLM endpoint.
 
 ## Quick start
 
@@ -97,6 +99,11 @@ Key references: [Architecture](docs/technical/architecture.md) ·
 [Deployment](docs/technical/deployment.md) ·
 [Data sources](docs/technical/data-sources.md) ·
 [Security model](docs/technical/security.md)
+
+Program docs (PRD · TRD · EXECUTED · architecture · knowledge-base) exist in
+each set — e.g. [docs/technical/prd.md](docs/technical/prd.md), and the
+matching filenames under `docs/ai/`, `docs/non-technical/`, `docs/layman/`.
+Every doc carries a last-updated author + timestamp.
 
 ## Design
 

@@ -1,5 +1,8 @@
 # FAQ
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 **Is this real-time?**
 Near-real-time. Each feed refreshes every few minutes (the app caches to be
 polite to the free upstreams). Breaking news typically appears within

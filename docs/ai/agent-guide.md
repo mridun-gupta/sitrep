@@ -1,12 +1,16 @@
 # Sitrep — AI Agent Guide
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Machine-oriented documentation for LLMs and autonomous agents using Sitrep.
 Precise contracts live in [api-contracts.md](api-contracts.md) and [mcp.md](mcp.md).
 
 ## What Sitrep is
 
 A read-only global intelligence aggregator. It normalizes geolocated events
-(conflicts, disasters, humanitarian alerts, infrastructure signals), merges a
+(conflicts, disasters, humanitarian alerts, infrastructure, military,
+health signals), merges a
 news wire, derives tension signals and cross-source hotspots, and produces a
 situation brief — all queryable over HTTP or MCP.
 

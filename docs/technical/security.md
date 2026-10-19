@@ -1,5 +1,8 @@
 # Security Model
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Sitrep is a **read-only intelligence surface** — the threat model is mostly
 "protect upstreams, protect the operator, don't serve garbage".
 

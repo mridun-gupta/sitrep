@@ -19,6 +19,7 @@ import { SEVERITY_ORDER, type EventCategory, type Severity } from '@/lib/types';
 const CATEGORIES = z.enum([
   'conflict', 'disaster', 'humanitarian', 'political',
   'economic', 'cyber', 'infrastructure', 'environment',
+  'military', 'health',
 ]);
 
 const SEVERITIES = z.enum(['info', 'low', 'medium', 'high', 'critical']);

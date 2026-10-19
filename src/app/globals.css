@@ -34,6 +34,8 @@
   --color-cat-cyber: #f472b6;
   --color-cat-infrastructure: #94a3b8;
   --color-cat-environment: #4ade80;
+  --color-cat-military: #fde047;
+  --color-cat-health: #2dd4bf;
 
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;

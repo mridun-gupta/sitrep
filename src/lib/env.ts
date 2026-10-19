@@ -24,6 +24,8 @@ const EnvSchema = z.object({
   ACLED_EMAIL: z.string().optional(),
   /** Free per-app token — request at https://apidoc.reliefweb.int/parameters#appname */
   RELIEFWEB_APPNAME: z.string().optional(),
+  /** Free FIRMS MAP_KEY — instant signup at firms.modaps.eosdis.nasa.gov/map/activate */
+  FIRMS_KEY: z.string().optional(),
 
   // --- Ops ---------------------------------------------------------------
   /** Bearer secret protecting /api/cron/*. Required in production if cron is exposed. */

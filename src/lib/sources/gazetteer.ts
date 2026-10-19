@@ -257,6 +257,12 @@ for (const [name, [lat, lon]] of Object.entries(COUNTRIES)) {
 }
 COUNTRY_INDEX.sort((a, b) => b.name.length - a.name.length);
 
+/** Direct country-name → centroid lookup (for sources that name countries). */
+export function countryCentroid(name: string): { name: string; lat: number; lon: number } | null {
+  const hit = COUNTRIES[name.trim().toLowerCase()];
+  return hit ? { name, lat: hit[0], lon: hit[1] } : null;
+}
+
 export interface GeoHit {
   name: string;
   lat: number;

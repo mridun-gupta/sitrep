@@ -7,6 +7,7 @@ import { Chip, Empty, Panel, RowSkeleton } from './ui';
 
 const TOPICS: (EventCategory | 'all')[] = [
   'all', 'conflict', 'disaster', 'political', 'humanitarian', 'economic', 'cyber',
+  'military', 'health',
 ];
 
 export interface WatchEntry {

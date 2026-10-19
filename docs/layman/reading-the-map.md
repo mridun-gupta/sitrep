@@ -1,5 +1,8 @@
 # Reading the Map
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 ## The dots
 
 Every dot is something that happened (or was reported) at that place. Bigger
@@ -12,7 +15,8 @@ dot = more serious, roughly speaking:
 
 Color tells you *what kind* of thing it is: red for conflict, amber for
 natural disasters, purple for humanitarian alerts, green for environment,
-and so on. The layer buttons at the top-left let you turn groups on and off.
+yellow for military aircraft, teal for health, and so on. The layer buttons
+at the top-left let you turn groups on and off.
 
 ## The bunches
 

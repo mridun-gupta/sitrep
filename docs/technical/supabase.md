@@ -1,5 +1,8 @@
 # Supabase
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Optional persistence layer. The app is fully functional without it.
 
 ## Tables

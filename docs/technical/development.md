@@ -1,5 +1,8 @@
 # Development
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 ## Prerequisites
 
 - Node.js ≥ 20 (repo pins `.nvmrc`)

@@ -132,37 +132,64 @@ function extractJson(s: string): string {
 // ── Deterministic fallback ──────────────────────────────────────────────
 
 function deterministicBrief(events: SitrepEvent[], news: NewsItem[]) {
+  const now = Date.now();
+  const age = (iso: string) => {
+    const m = Math.round((now - new Date(iso).getTime()) / 60_000);
+    return m < 60 ? `${m}m` : m < 1440 ? `${Math.round(m / 60)}h` : `${Math.round(m / 1440)}d`;
+  };
+  const line = (e: SitrepEvent) =>
+    `${e.title}${e.location?.name ? ` — ${e.location.name}` : ''} (${e.sourceLabel}, ${age(e.time)} ago)`;
+
   const bySev = [...events].sort(
     (a, b) => sevRank(b.severity) - sevRank(a.severity) || b.time.localeCompare(a.time),
   );
-  const top = bySev.slice(0, 5);
-  const headline = top[0]
-    ? `${top[0].title}${top[0].location?.name ? ` — ${top[0].location.name}` : ''}`
+  // Stale sources can surface old items — the headline must be recent.
+  const FRESH_MS = 72 * 3600_000;
+  const fresh = bySev.filter((e) => now - new Date(e.time).getTime() < FRESH_MS);
+  const lead = fresh[0] ?? bySev[0];
+  const headline = lead
+    ? truncate(
+        `${lead.title}${lead.location?.name ? ` — ${lead.location.name}` : ''} · ${events.length} events tracked`,
+        220,
+      )
     : 'No significant events in the current window';
 
   const sections: { title: string; points: string[] }[] = [];
 
-  const critHigh = top.filter((e) => sevRank(e.severity) >= sevRank('high'));
+  const critHigh = fresh.filter((e) => sevRank(e.severity) >= sevRank('high')).slice(0, 5);
   if (critHigh.length) {
-    sections.push({
-      title: 'Priority developments',
-      points: critHigh.map((e) => e.title),
-    });
+    sections.push({ title: 'Priority developments', points: critHigh.map(line) });
   }
 
-  // Category rollups.
-  const cats = new Map<string, number>();
-  for (const e of events) cats.set(e.category, (cats.get(e.category) ?? 0) + 1);
+  // Category rollups with a named example per domain.
+  const cats = new Map<string, { n: number; top?: SitrepEvent }>();
+  for (const e of bySev) {
+    const c = cats.get(e.category) ?? { n: 0 };
+    c.n++;
+    c.top ??= e;
+    cats.set(e.category, c);
+  }
   const catSummary = [...cats.entries()]
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 4)
-    .map(([c, n]) => `${n} ${c} event${n === 1 ? '' : 's'} tracked`);
+    .sort((a, b) => b[1].n - a[1].n)
+    .slice(0, 5)
+    .map(([c, { n, top }]) => {
+      const example = top ? ` — e.g. ${truncate(top.title, 90)}` : '';
+      return `${n} ${c} event${n === 1 ? '' : 's'}${example}`;
+    });
   if (catSummary.length) sections.push({ title: 'Activity by domain', points: catSummary });
+
+  // Recent medium-severity items worth a second look.
+  const watch = fresh.filter((e) => sevRank(e.severity) === sevRank('medium')).slice(0, 4);
+  if (watch.length) {
+    sections.push({ title: 'On watch', points: watch.map(line) });
+  }
 
   if (news.length) {
     sections.push({
       title: 'Leading coverage',
-      points: news.slice(0, 4).map((n) => truncate(n.title, 200)),
+      points: news
+        .slice(0, 5)
+        .map((n) => `${truncate(n.title, 170)} — ${n.sourceLabel}`),
     });
   }
 

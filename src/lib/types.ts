@@ -13,7 +13,9 @@ export type EventCategory =
   | 'economic' // markets, trade shocks
   | 'cyber' // major outages, intrusions
   | 'infrastructure' // cables, aviation, power, ports
-  | 'environment'; // natural/cryosphere events (EONET)
+  | 'environment' // natural/cryosphere events (EONET)
+  | 'military' // tracked military aircraft, force movements
+  | 'health'; // disease outbreaks, epidemic alerts
 
 export type Severity = 'info' | 'low' | 'medium' | 'high' | 'critical';
 

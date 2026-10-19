@@ -10,15 +10,21 @@ import type {
   SitrepEvent,
 } from '../types';
 import { fetchAcled } from './acled';
+import { fetchMilitaryTracks } from './adsb';
 import { fetchEonet } from './eonet';
+import { fetchFirms } from './firms';
 import { fetchGdacs } from './gdacs';
 import { fetchGdelt } from './gdelt';
+import { fetchIoda } from './ioda';
 import { fetchMarkets } from './markets';
 import { fetchNewsApi } from './newsapi';
+import { fetchNwsAlerts } from './nws';
 import { fetchReliefWeb } from './reliefweb';
 import { fetchRss } from './rss';
 import { getHealth, runSource } from './registry';
+import { fetchSpaceWeather } from './swpc';
 import { fetchUsgs } from './usgs';
+import { fetchWho } from './who';
 
 /**
  * Aggregation layer — fans out to every enabled source in parallel, isolates
@@ -67,8 +73,17 @@ export async function getEvents(): Promise<EventsBundle> {
           }).then((d) => (d ? { source: 'reliefweb', data: d } : null)),
         );
       }
+      if (env.FIRMS_KEY) {
+        keyed.push(
+          runSource('firms', async () => {
+            const d = await fetchFirms(env.FIRMS_KEY!);
+            return { items: d.length, data: d };
+          }).then((d) => (d ? { source: 'firms', data: d } : null)),
+        );
+      }
 
-      const [usgs, eonet, gdacs, gdelt, ...keyedResults] = await Promise.all([
+      const [usgs, eonet, gdacs, adsb, nws, swpc, ioda, who, gdelt, ...keyedResults] =
+        await Promise.all([
         runSource('usgs', async () => {
           const d = await fetchUsgs();
           return { items: d.length, data: d };
@@ -79,6 +94,26 @@ export async function getEvents(): Promise<EventsBundle> {
         }),
         runSource('gdacs', async () => {
           const d = await fetchGdacs();
+          return { items: d.length, data: d };
+        }),
+        runSource('adsb', async () => {
+          const d = await fetchMilitaryTracks();
+          return { items: d.length, data: d };
+        }),
+        runSource('nws', async () => {
+          const d = await fetchNwsAlerts();
+          return { items: d.length, data: d };
+        }),
+        runSource('swpc', async () => {
+          const d = await fetchSpaceWeather();
+          return { items: d.length, data: d };
+        }),
+        runSource('ioda', async () => {
+          const d = await fetchIoda();
+          return { items: d.length, data: d };
+        }),
+        runSource('who', async () => {
+          const d = await fetchWho();
           return { items: d.length, data: d };
         }),
         runSource('gdelt', async () => {
@@ -95,6 +130,11 @@ export async function getEvents(): Promise<EventsBundle> {
         ...(usgs ?? []),
         ...(eonet ?? []),
         ...(gdacs ?? []),
+        ...(adsb ?? []),
+        ...(nws ?? []),
+        ...(swpc ?? []),
+        ...(ioda ?? []),
+        ...(who ?? []),
         ...(gdelt?.events ?? []),
         ...keyedEvents,
       ].sort((a, b) => b.time.localeCompare(a.time));
@@ -180,7 +220,10 @@ export async function getSignals(): Promise<SignalPoint[]> {
 function deriveSignals(events: SitrepEvent[]): SignalPoint[] {
   const SEV_W: Record<string, number> = { info: 1, low: 2, medium: 4, high: 8, critical: 12 };
   const CAT_BOOST: Record<string, number> = {
-    conflict: 1.5, disaster: 1.4, humanitarian: 1.3, cyber: 1.1,
+    conflict: 1.5, disaster: 1.4, humanitarian: 1.3, health: 1.2, cyber: 1.1,
+    // Military tracks are constant background — damped so only dense
+    // activity clusters register rather than routine patrols.
+    military: 0.3,
   };
   const cells = new Map<string, { lat: number; lon: number; wsum: number; w: number; names: Map<string, number> }>();
   for (const e of events) {

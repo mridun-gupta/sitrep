@@ -1,5 +1,8 @@
 # Deployment
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Sitrep deploys anywhere Next.js 16 runs. The zero-config path needs **no env
 vars** — you get the full dashboard and public API immediately.
 

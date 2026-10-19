@@ -26,3 +26,5 @@ Open-source OSINT situation-awareness console. Next.js 16 + React 19 + Tailwind 
 - Doc discipline: user-facing changes update `docs/{ai,technical,non-technical,layman}` + `llms.txt` + `CHANGELOG.md` — see `.devin/skills/knowledge-base/SKILL.md`.
 - New sources follow `.devin/skills/osint-source-vetting/SKILL.md`; security changes run `.devin/skills/security-audit/SKILL.md`.
 - Deps: pinned/`^` only, ≥7 days mature — never `latest`/`*`.
+
+<!-- Last updated: 2026-10-19 — mridun-gupta & Devin (AI-assisted) -->

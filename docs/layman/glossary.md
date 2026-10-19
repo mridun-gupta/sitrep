@@ -1,6 +1,26 @@
 # Glossary (plain words)
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 **Sitrep** — military shorthand for "situation report": what's happening right now.
+
+**ADS-B** — the radio beacon planes broadcast their position on. "Military
+tracks" are just aircraft whose beacon is on — it's public data, and a plane
+with its beacon off simply doesn't appear.
+
+**Hotspot** — a place where several *independent* sources report things at
+the same time. More convincing than any single report.
+
+**IODA** — a Georgia Tech project that notices when a country's internet
+traffic drops sharply — often unrest, war, or a blackout.
+
+**Tension** — Sitrep's measure of how much negative coverage a place is
+getting. When the mood-measuring feed is busy, it's estimated from the
+events instead — those points just carry no mood number.
+
+**OSINT** — "open-source intelligence": learning things from information
+that's already public, gathered carefully.
 
 **OSINT** — "open-source intelligence". Fancy phrase for "paying close attention to public information" — news, government feeds, satellite bulletins. Journalists, researchers and governments all do this.
 

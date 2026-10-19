@@ -1,5 +1,8 @@
 # What is Sitrep?
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Imagine a big wall screen in a movie where someone watches the whole world at
 once — blinking dots on a map, news headlines rolling past, numbers ticking.
 **Sitrep is that wall screen, in a web page, built only from free public

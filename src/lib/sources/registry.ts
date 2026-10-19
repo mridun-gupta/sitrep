@@ -23,11 +23,17 @@ export const SOURCE_REGISTRY: SourceDef[] = [
   { id: 'usgs', label: 'USGS', url: 'https://earthquake.usgs.gov', kind: 'keyless', description: 'Real-time global earthquake feed' },
   { id: 'eonet', label: 'NASA EONET', url: 'https://eonet.gsfc.nasa.gov', kind: 'keyless', description: 'Natural events — wildfires, storms, volcanoes, ice' },
   { id: 'gdacs', label: 'GDACS', url: 'https://www.gdacs.org', kind: 'keyless', description: 'UN/EU disaster alerts — cyclones, floods, volcanoes, wildfires, droughts' },
+  { id: 'nws', label: 'NWS', url: 'https://www.weather.gov', kind: 'keyless', description: 'US severe-weather alerts — tornadoes, hurricanes, floods' },
+  { id: 'adsb', label: 'ADS-B (mil)', url: 'https://adsb.lol', kind: 'keyless', description: 'Live military aircraft tracks (community ADS-B)' },
+  { id: 'swpc', label: 'NOAA SWPC', url: 'https://www.swpc.noaa.gov', kind: 'keyless', description: 'Space-weather watches & warnings' },
+  { id: 'ioda', label: 'IODA', url: 'https://ioda.inetintel.cc.gatech.edu', kind: 'keyless', description: 'Country-scale internet outage detection' },
+  { id: 'who', label: 'WHO', url: 'https://www.who.int', kind: 'keyless', description: 'WHO outbreak/epidemic notices (gazetteer-geocoded)' },
   { id: 'rss', label: 'RSS wires', url: 'https://en.wikipedia.org/wiki/RSS', kind: 'keyless', description: 'Curated international news feeds' },
   { id: 'markets', label: 'Market feeds', url: 'https://www.coingecko.com', kind: 'keyless', description: 'Crypto (CoinGecko) + indices (stooq)' },
   { id: 'newsapi', label: 'NewsAPI', url: 'https://newsapi.org', kind: 'keyed', description: 'Headline aggregation (requires NEWSAPI_KEY)' },
   { id: 'acled', label: 'ACLED', url: 'https://acleddata.com', kind: 'keyed', description: 'Conflict event data (requires ACLED_KEY + ACLED_EMAIL)' },
   { id: 'reliefweb', label: 'ReliefWeb', url: 'https://reliefweb.int', kind: 'keyed', description: 'UN OCHA humanitarian alerts (requires RELIEFWEB_APPNAME)' },
+  { id: 'firms', label: 'NASA FIRMS', url: 'https://firms.modaps.eosdis.nasa.gov', kind: 'keyed', description: 'VIIRS thermal anomalies — global wildfire pixels (requires FIRMS_KEY)' },
 ];
 
 const health = new Map<string, SourceHealth>();

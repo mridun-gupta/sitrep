@@ -1,5 +1,8 @@
 # Architecture
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 ```
 ┌─ Browser (console UI) ─┐      ┌─ AI agents (MCP clients) ─┐
 │  React 19 client comps │      │  Claude · Cursor · etc.   │
@@ -31,8 +34,9 @@
            │ HTTPS
 ┌──────────▼────────────────────────────────────┐
 │ Upstreams: GDELT DOC · USGS · NASA EONET ·    │
-│ GDACS · RSS wires · CoinGecko/stooq ·         │
-│ (keyed) ACLED · NewsAPI · ReliefWeb           │
+│ GDACS · NWS · adsb.lol · SWPC · IODA · WHO ·  │
+│ RSS wires · CoinGecko/stooq ·                 │
+│ (keyed) ACLED · NewsAPI · ReliefWeb · FIRMS   │
 └───────────────────────────────────────────────┘
 ```
 

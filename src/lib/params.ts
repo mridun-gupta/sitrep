@@ -9,6 +9,7 @@ import type { EventCategory, Severity } from './types';
 const CATEGORIES = [
   'conflict', 'disaster', 'humanitarian', 'political',
   'economic', 'cyber', 'infrastructure', 'environment',
+  'military', 'health',
 ] as const satisfies EventCategory[];
 
 const SEVERITIES = ['info', 'low', 'medium', 'high', 'critical'] as const satisfies Severity[];

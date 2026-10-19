@@ -1,5 +1,8 @@
 # Configuration
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 All env vars are optional. `src/lib/env.ts` validates them with zod at boot —
 a malformed value fails fast with a named error.
 
@@ -16,6 +19,7 @@ Copy `.env.example` → `.env.local` for dev, or set vars on your platform.
 | `NEWSAPI_KEY` | Adds NewsAPI headlines to the wire | newsapi.org |
 | `ACLED_KEY` + `ACLED_EMAIL` | Adds real conflict-event data | acleddata.com |
 | `RELIEFWEB_APPNAME` | Adds UN OCHA humanitarian alerts | apidoc.reliefweb.int |
+| `FIRMS_KEY` | Adds NASA FIRMS global wildfire cells | firms.modaps.eosdis.nasa.gov/map/activate (free, instant) |
 | `CRON_SECRET` | Enables `GET /api/cron/ingest` (Bearer) | Any long random string |
 | `NEXT_PUBLIC_SITE_URL` | Absolute links in generated docs/metadata | Your deployment URL |
 | `NEXT_PUBLIC_BASEMAP_URL` | Override the basemap style JSON | Any MapLibre GL style URL |

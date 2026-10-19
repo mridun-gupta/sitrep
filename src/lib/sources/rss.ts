@@ -19,6 +19,8 @@ export const RSS_FEEDS: { id: string; label: string; url: string; lang: string }
   { id: 'npr-world', label: 'NPR — World', url: 'https://feeds.npr.org/1004/rss.xml', lang: 'en' },
   { id: 'un-news', label: 'UN News', url: 'https://news.un.org/feed/subscribe/en/news/all/rss.xml', lang: 'en' },
   { id: 'reliefweb-updates', label: 'ReliefWeb — Updates', url: 'https://reliefweb.int/updates/rss.xml', lang: 'en' },
+  { id: 'who', label: 'WHO News', url: 'https://www.who.int/rss-feeds/news-english.xml', lang: 'en' },
+  { id: 'cisa', label: 'CISA Advisories', url: 'https://www.cisa.gov/cybersecurity-advisories/all.xml', lang: 'en' },
 ];
 
 const parser = new Parser({ timeout: 12_000 });

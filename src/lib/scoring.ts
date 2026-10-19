@@ -43,6 +43,16 @@ const CATEGORY_KEYWORDS: Record<Exclude<EventCategory, 'environment'>, string[]>
     'port closure', 'airspace', 'flight cancel', 'nuclear plant', 'dam ',
     'satellite', 'launch failure', 'oil tanker', 'shipping lane', 'suez', 'strait',
   ],
+  military: [
+    'fighter jet', 'warplane', 'bomber', 'aircraft carrier', 'naval exercise',
+    'military drill', 'troop deployment', 'mobiliz', 'warship', 'airbase',
+    'nato exercise', 'sortie', 'squadron',
+  ],
+  health: [
+    'outbreak', 'epidemic', 'cholera', 'ebola', 'mpox', 'dengue', 'measles',
+    'polio', 'malaria', 'pandemic', 'virus cases', 'bird flu', 'h5n1',
+    'marburg', 'plague', 'yellow fever',
+  ],
 };
 
 const SEVERITY_TRIGGERS: Record<Exclude<Severity, 'info'>, string[]> = {

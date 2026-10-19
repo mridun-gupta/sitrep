@@ -1,9 +1,13 @@
 # Sitrep
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 > Open-source, self-hostable global situation-awareness console. Merges free
-> public feeds (GDELT, USGS, NASA EONET, GDACS, international RSS, markets)
+> public feeds (GDELT, USGS, NASA EONET, GDACS, NWS alerts, military ADS-B,
+> NOAA SWPC space weather, IODA outages, WHO, international RSS, markets)
 > into a map, wire, convergence hotspots, tension index and AI situation
-> briefs. AGPL-3.0.
+> briefs. Keyed upgrades: NewsAPI, ACLED, ReliefWeb, NASA FIRMS. AGPL-3.0.
 
 ## For agents — start here
 
@@ -11,9 +15,11 @@
 - [API contracts](docs/ai/api-contracts.md) — normative field-level schemas, envelope, error shapes
 - [MCP server](docs/ai/mcp.md) — `/mcp` tools: sitrep_events, sitrep_news, sitrep_earthquakes, sitrep_hotspots, sitrep_signals, sitrep_markets, sitrep_brief
 - [OpenAPI 3.1 spec](src/lib/openapi-spec.ts) — served live at `/api/v1/openapi.json`
+- Agent-tier program docs: [prd](docs/ai/prd.md) · [trd](docs/ai/trd.md) · [executed](docs/ai/executed.md) · [architecture](docs/ai/architecture.md) · [knowledge-base](docs/ai/knowledge-base.md) — machine-readable YAML summaries
 
 ## Engineering
 
+- Program docs: [PRD](docs/technical/prd.md) · [TRD](docs/technical/trd.md) · [EXECUTED](docs/technical/executed.md) · [knowledge-base](docs/technical/knowledge-base.md)
 - [Architecture](docs/technical/architecture.md) — pipeline, module map, caching, known constraints
 - [API reference](docs/technical/api-reference.md) — human-readable endpoint docs
 - [Data sources](docs/technical/data-sources.md) — upstream inventory, vetting, adding a source
@@ -28,9 +34,11 @@
 - [User guide](docs/non-technical/guide.md) — console walkthrough
 - [Features](docs/non-technical/features.md) — what it does and doesn't do
 - [FAQ](docs/non-technical/faq.md)
+- Non-technical program docs: [prd](docs/non-technical/prd.md) · [trd](docs/non-technical/trd.md) · [executed](docs/non-technical/executed.md) · [architecture](docs/non-technical/architecture.md) · [knowledge-base](docs/non-technical/knowledge-base.md)
 - [Layman intro](docs/layman/what-is-sitrep.md) — plain-language explanation
 - [Reading the map](docs/layman/reading-the-map.md)
 - [Glossary](docs/layman/glossary.md)
+- Layman program docs: [prd](docs/layman/prd.md) · [trd](docs/layman/trd.md) · [executed](docs/layman/executed.md) · [architecture](docs/layman/architecture.md) · [knowledge-base](docs/layman/knowledge-base.md)
 
 ## Repo conventions
 

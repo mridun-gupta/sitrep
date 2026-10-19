@@ -1,5 +1,8 @@
 # Getting Around the Console
 
+> **Last updated:** 2026-10-19 · **Authors:** mridun-gupta & Devin (AI-assisted)
+
+
 Sitrep opens with three columns: the **Wire** (news), the **map** (everything
 geolocated), and the **intel rail** (brief, convergence, markets).
 
