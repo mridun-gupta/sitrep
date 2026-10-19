@@ -1,0 +1,16 @@
+# Sitrep — single-service compose. Supabase is a hosted dependency; for a
+# local stack run `supabase start` separately (see docs/technical/supabase.md).
+services:
+  sitrep:
+    build: .
+    image: sitrep:latest
+    ports:
+      - "3000:3000"
+    env_file:
+      - path: .env.local
+        required: false
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    # For a cron sweep without Vercel: `docker exec sitrep wget -qO-
+    # --header="Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/ingest`

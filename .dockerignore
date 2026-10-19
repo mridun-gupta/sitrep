@@ -1,0 +1,15 @@
+.git
+.next
+node_modules
+.env*
+!.env.example
+coverage
+*.log
+.devin
+docs
+tests
+.github
+supabase
+Dockerfile
+docker-compose.yml
+render.yaml

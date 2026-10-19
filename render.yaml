@@ -1,0 +1,11 @@
+# Render blueprint — New → Blueprint → point at this repo.
+services:
+  - type: web
+    name: sitrep
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/v1/openapi.json
+    envVars:
+      # Set optional vars in the dashboard — see docs/technical/configuration.md
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"

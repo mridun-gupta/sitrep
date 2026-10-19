@@ -1,0 +1,40 @@
+# Sitrep
+
+> Open-source, self-hostable global situation-awareness console. Merges free
+> public feeds (GDELT, USGS, NASA EONET, GDACS, international RSS, markets)
+> into a map, wire, convergence hotspots, tension index and AI situation
+> briefs. AGPL-3.0.
+
+## For agents — start here
+
+- [Agent guide](docs/ai/agent-guide.md) — how to consume Sitrep: endpoints, tool names, degradation rules
+- [API contracts](docs/ai/api-contracts.md) — normative field-level schemas, envelope, error shapes
+- [MCP server](docs/ai/mcp.md) — `/mcp` tools: sitrep_events, sitrep_news, sitrep_earthquakes, sitrep_hotspots, sitrep_signals, sitrep_markets, sitrep_brief
+- [OpenAPI 3.1 spec](src/lib/openapi-spec.ts) — served live at `/api/v1/openapi.json`
+
+## Engineering
+
+- [Architecture](docs/technical/architecture.md) — pipeline, module map, caching, known constraints
+- [API reference](docs/technical/api-reference.md) — human-readable endpoint docs
+- [Data sources](docs/technical/data-sources.md) — upstream inventory, vetting, adding a source
+- [Configuration](docs/technical/configuration.md) — every env var; app runs with zero
+- [Deployment](docs/technical/deployment.md) — Vercel, Docker, Railway/Render, bare Node
+- [Security model](docs/technical/security.md) — threat model, RLS, rate limits, limitations
+- [Development](docs/technical/development.md) — commands, conventions, testing approach
+- [Supabase](docs/technical/supabase.md) — optional persistence schema and RLS
+
+## Product docs
+
+- [User guide](docs/non-technical/guide.md) — console walkthrough
+- [Features](docs/non-technical/features.md) — what it does and doesn't do
+- [FAQ](docs/non-technical/faq.md)
+- [Layman intro](docs/layman/what-is-sitrep.md) — plain-language explanation
+- [Reading the map](docs/layman/reading-the-map.md)
+- [Glossary](docs/layman/glossary.md)
+
+## Repo conventions
+
+- Security-audit skill: `.devin/skills/security-audit/SKILL.md`
+- Source-vetting skill: `.devin/skills/osint-source-vetting/SKILL.md`
+- Knowledge-base skill: `.devin/skills/knowledge-base/SKILL.md`
+- Changelog: `CHANGELOG.md` · Contributing: `CONTRIBUTING.md` · Security: `SECURITY.md`

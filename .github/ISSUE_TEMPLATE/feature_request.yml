@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest an idea — a new source, layer, endpoint, or UX
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    label: The idea
+    attributes:
+      description: What should Sitrep do? What problem does it solve for you?
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    label: If it's a data source
+    attributes:
+      description: "URL, licence, auth requirements, rate limits. Note: sources must meet docs/technical/data-sources.md vetting (free tier, terms allow redistribution, geodata preferred)."
+  - type: textarea
+    id: alternatives
+    label: Alternatives considered

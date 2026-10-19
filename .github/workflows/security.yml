@@ -1,0 +1,27 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 7 * * 1" # weekly
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Fail on high/critical advisories. If a finding must be tolerated,
+      # document it in docs/technical/security.md before suppressing.
+      - run: npm audit --audit-level=high
+      - name: Scan tracked files for committed secrets
+        run: |
+          ! git grep -nI -E \
+            '(sk-[a-zA-Z0-9_-]{20,}|eyJhbGciOiJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}|ghp_[a-zA-Z0-9]{36}|xox[baprs]-[a-zA-Z0-9-]{10,})' \
+            -- . ':!.github/workflows/security.yml'

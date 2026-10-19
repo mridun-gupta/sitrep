@@ -1,0 +1,32 @@
+name: Bug report
+description: Something in Sitrep isn't working
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "**Security issue?** Please don't report it here — see SECURITY.md."
+  - type: textarea
+    id: what
+    label: What happened?
+    attributes:
+      description: What you expected vs. what you saw. Include the URL path (e.g. /api/v1/events?…) if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    label: Reproduction
+    attributes:
+      description: Steps to reproduce, or `curl` command for API issues.
+  - type: dropdown
+    id: deployment
+    label: Where are you running Sitrep?
+    options:
+      - Vercel
+      - Docker / self-hosted
+      - Local dev (npm run dev)
+      - Someone else's public instance
+  - type: textarea
+    id: sources
+    label: Source health (optional)
+    attributes:
+      description: Paste the output of /api/v1/sources if a data source looks wrong.
