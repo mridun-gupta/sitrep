@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * SITREP design tokens — "operations console".
+ * One accent (signal amber), cool near-black surfaces, hairline borders.
+ * Severity and category scales are semantic, not decorative.
+ */
+@theme {
+  --color-bg: #07090d;
+  --color-panel: #0c0f15;
+  --color-panel-2: #10141c;
+  --color-edge: #1b2230;
+  --color-edge-2: #28324a;
+
+  --color-ink: #e6eaf2;
+  --color-ink-2: #97a1b3;
+  --color-ink-3: #5d6678;
+
+  --color-accent: #f0a92e;
+  --color-accent-dim: #8a5f1b;
+  --color-accent-ink: #140e02;
+
+  --color-sev-info: #64748b;
+  --color-sev-low: #38bdf8;
+  --color-sev-medium: #f0a92e;
+  --color-sev-high: #f97316;
+  --color-sev-critical: #ef4444;
+
+  --color-cat-conflict: #ef4444;
+  --color-cat-disaster: #f0a92e;
+  --color-cat-humanitarian: #a78bfa;
+  --color-cat-political: #38bdf8;
+  --color-cat-economic: #34d399;
+  --color-cat-cyber: #f472b6;
+  --color-cat-infrastructure: #94a3b8;
+  --color-cat-environment: #4ade80;
+
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* console layout: panels scroll, page does not */
+}
+
+/* ── Panel scrollbars: thin, quiet ──────────────────────────────── */
+.scroll-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-edge-2) transparent;
+}
+.scroll-slim::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: var(--color-edge-2);
+}
+.scroll-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ── Ticker ─────────────────────────────────────────────────────── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-scroll 90s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Live pulse dot ─────────────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.live-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Map chrome overrides ───────────────────────────────────────── */
+.maplibregl-popup-content {
+  background: var(--color-panel-2);
+  color: var(--color-ink);
+  border: 1px solid var(--color-edge-2);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  max-width: 300px;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 0.55);
+}
+.maplibregl-popup-tip {
+  border-top-color: var(--color-edge-2) !important;
+}
+.maplibregl-popup-close-button {
+  color: var(--color-ink-3);
+  font-size: 14px;
+  padding: 2px 6px;
+}
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+  background: rgb(7 9 13 / 0.7) !important;
+  color: var(--color-ink-3) !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: var(--color-ink-2) !important;
+}
+
+/* ── Motion discipline: one subtle fade for panel content only ──── */
+@keyframes panel-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.panel-in {
+  animation: panel-in 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track, .live-dot, .panel-in {
+    animation: none !important;
+  }
 }
