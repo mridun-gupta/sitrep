@@ -35,6 +35,12 @@ const state = await page.evaluate(() => {
     hasCanvas: !!canvas,
     canvasSize: canvas ? `${canvas.width}x${canvas.height}` : null,
     canvasStyleSize: canvas ? `${canvas.style.width}x${canvas.style.height}` : null,
+    // A collapsed container (0px map element, 300px default canvas) is the
+    // "blank center" failure mode — assert the map fills its parent.
+    mapElHeight: mapEl ? Math.round(mapEl.getBoundingClientRect().height) : 0,
+    parentHeight: mapEl?.parentElement
+      ? Math.round(mapEl.parentElement.getBoundingClientRect().height)
+      : 0,
     mapClasses: mapEl ? mapEl.className : null,
     mapboxglLoaded: !!mapEl,
     styleLoaded: sm ? sm.isStyleLoaded() : null,
@@ -60,4 +66,12 @@ state.eventsApi = ev;
 console.log('STATE:', JSON.stringify(state, null, 1));
 console.log('LOGS:');
 for (const l of logs.slice(0, 60)) console.log(' ', l);
+
+const failures = [];
+if (!state.hasCanvas) failures.push('no canvas');
+if (state.styleLoaded !== true) failures.push('style not loaded');
+if ((state.mapElHeight ?? 0) < 400 || state.mapElHeight < (state.parentHeight ?? 0) - 8)
+  failures.push(`map element collapsed (${state.mapElHeight}px of ${state.parentHeight}px)`);
+console.log(failures.length ? `FAIL: ${failures.join('; ')}` : 'PASS');
 await browser.close();
+process.exit(failures.length ? 1 : 0);

@@ -41,6 +41,18 @@
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 }
 
+/*
+ * MapLibre ships an UNLAYERED `.maplibregl-map { position: relative }` rule.
+ * Tailwind v4 emits utilities inside @layer — unlayered CSS always wins over
+ * layered, so `.absolute` on the map container silently loses and the
+ * container collapses to height 0. Double-class specificity beats MapLibre's
+ * unlayered rule from here (also unlayered).
+ */
+.maplibregl-map.maplibregl-map {
+  position: absolute;
+  inset: 0;
+}
+
 html,
 body {
   height: 100%;

@@ -368,7 +368,13 @@ export default function GlobalMap({
 
   return (
     <div className="relative h-full w-full">
-      <div ref={container} className="absolute inset-0" />
+      <div
+        ref={container}
+        className="absolute inset-0"
+        // inline style wins any specificity war — see globals.css note on
+        // MapLibre's unlayered `.maplibregl-map` rule
+        style={{ position: 'absolute', inset: 0 }}
+      />
       {/* Layer toggles */}
       <div className="absolute top-2 left-2 z-10 flex gap-1">
         {LAYERS.map((l) => (

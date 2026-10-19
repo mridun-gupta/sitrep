@@ -54,7 +54,16 @@ Sitrep is a **read-only intelligence surface** — the threat model is mostly
    downgrade `eslint-config-next` to v14 and break Next 16 linting, so we
    accept and monitor. Re-run `npm audit` on dependency updates — drop this
    note once a fix lands.
-6. **CSP wildcard footgun (learned the hard way).** `*.host` does **not**
+6. **Tailwind v4 × library CSS collision (learned the hard way).** Tailwind
+   v4 emits utilities inside `@layer utilities`; unlayered library CSS
+   **always wins** over layered rules. MapLibre's unlayered
+   `.maplibregl-map { position: relative }` beat `.absolute` on the map
+   container → 0-height container → 300px default canvas → "blank center".
+   Mitigations: doubled-specificity unlayered rule in `globals.css`
+   (`.maplibregl-map.maplibregl-map`) plus an inline `style` pin on the
+   container. Same rule applies to ANY third-party stylesheet — never rely on
+   a Tailwind utility to override library CSS.
+7. **CSP wildcard footgun (learned the hard way).** `*.host` does **not**
    cover the bare `host`. `connect-src … https://*.basemaps.cartocdn.com`
    blocked the map's own style fetch at `basemaps.cartocdn.com` (no
    subdomain). Both forms are now listed explicitly — keep that rule when

@@ -6,6 +6,16 @@ this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased
 
+### Fixed (2026-10-19 — follow-up)
+- **Map center collapse (the real "blank center" root cause).** MapLibre's
+  unlayered `.maplibregl-map { position: relative }` beat Tailwind v4's
+  layered `.absolute` on the map container → container height 0 → canvas
+  stuck at its 300px default. Fixed via a doubled-specificity unlayered rule
+  in `globals.css` + inline `style` pin on the container.
+- `smoke-map.mjs` now hard-fails when the map element doesn't fill its
+  parent (was asserting only canvas presence — which passed on the broken
+  300px render).
+
 ### Added (2026-10-19 — signal expansion)
 - **New keyless sources:** adsb.lol `/v2/mil` military aircraft tracks (new
   `military` category, ~129 live tracks), NWS severe-weather alerts
