@@ -8,6 +8,10 @@ health on `/api/v1/sources` and the Sources drawer.
 | Source | Provides | Cadence/limits | License note |
 |---|---|---|---|
 | **GDELT DOC 2** | Global news articles + tone; gazetteer-geocoded into events & tension signals | ~1 req / 5s per IP — we query once per cache window (12min) | Free for research/non-commercial aggregation |
+
+When GDELT is down/429'd, tension signals fall back to derivation from the
+geolocated event mix (severity × category boost per ~2.5° cell) — the map
+layer never reads empty, and derived points carry no `tone` field.
 | **USGS** | M4.5+ earthquakes, 24h feed | Freely cacheable | US Gov public domain |
 | **NASA EONET** | Open natural events (wildfires, storms, volcanoes, ice) | Generous | Public domain |
 | **GDACS** | UN/EU disaster alerts — cyclones, floods, volcanoes, wildfires, droughts with Green/Orange/Red alert levels | Generous | EC JRC, attribution appreciated |

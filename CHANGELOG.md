@@ -6,6 +6,31 @@ this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased
 
+### Fixed
+- **Blank map (critical):** CSP `connect-src`/`img-src` used
+  `*.basemaps.cartocdn.com`, which does not cover the bare
+  `basemaps.cartocdn.com` host serving the style JSON — the map never loaded.
+  Both bare and wildcard hosts are now listed.
+- **Worker failure:** MapLibre v6's module-worker URL resolves unreliably
+  under Turbopack production builds. Worker is now vendored at
+  `/vendor/maplibre-worker.js` (synced from `node_modules` on predev/prebuild)
+  and pinned via `maplibregl.setWorkerUrl`.
+- Hydration mismatch (React #418) from the SSR-rendered UTC clock — `useNow`
+  now returns `null` until mounted.
+- News ticker scroll speed — duration is now measured from real strip width
+  (~55 px/s) instead of a fixed 90s regardless of content length.
+- Empty-state overlay when the basemap itself fails to load (previously
+  rendered as a silent void).
+
+### Added
+- Tension-index fallback: when GDELT is unavailable, signals are derived
+  from the geolocated event mix (severity × category weighting). Derived
+  points omit `tone` to mark provenance.
+- `scripts/smoke-map.mjs` — headless-Chrome smoke test for the rendered page
+  (map canvas, style load, layers, console errors, API reachability).
+- `/mcp` and `/api/v1/openapi.json` rate limiting; shared `getBrief()` cache
+  so REST/MCP/page consumers share one LLM generation (10 min).
+
 ## 0.1.0 — Initial public release
 
 ### Added

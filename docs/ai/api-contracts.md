@@ -41,6 +41,9 @@ Each entry: `{id, lat, lon, name?, categories[], sources[], eventCount, score, m
 ### `GET /signals`
 Tension localities — negative-toned news density per place. Params: `limit` ≤100.
 `{lat, lon, name, weight, tone?}` — `weight` is tone-modulated article count.
+Fallback: when GDELT is unavailable, signals are derived from the geolocated
+event mix (severity × category boost, weighted centroid per ~2.5° cell).
+Derived points have no `tone` field — that absence marks the provenance.
 
 ### `GET /markets`
 `[{symbol, name, price, change24h?, unit, kind: crypto|index|commodity|fx}]`.

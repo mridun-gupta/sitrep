@@ -67,6 +67,12 @@ production, so module-level maps (cache, health, rate-limit buckets) are
 per-route-instance. `/api/v1/sources` polls sources itself for this reason.
 Self-hosted single-process deployments get fully shared state.
 
+**Self-hosted map worker.** MapLibre v6 spawns a module worker resolved via
+`import.meta.url`, which bundlers (Turbopack in our build) emit unreliably.
+`GlobalMap` pins `maplibregl.setWorkerUrl('/vendor/maplibre-worker.js')` —
+`scripts/sync-worker.mjs` copies the installed worker into `public/vendor/`
+on `predev`/`prebuild`, so worker and library versions can never drift.
+
 ## Request lifecycle (e.g. `GET /api/v1/events?category=conflict`)
 
 1. `limited(req)` — in-memory sliding-window rate check.

@@ -45,7 +45,7 @@ export function Header({
           )}
         </button>
         <div className="font-mono text-[11px] tracking-wider text-ink-2 tabular-nums">
-          {utcClock(now)}
+          {now === null ? '--:--:--Z' : utcClock(now)}
         </div>
       </div>
     </header>

@@ -13,8 +13,17 @@ npm run build      # production build
 npm run typecheck  # tsc --noEmit
 npm run lint       # eslint
 npm test           # vitest unit tests (tests/)
-node .next/standalone/server.js  # serve prod build standalone
+node .next/standalone/server.js  # serve prod build standalone — but copy
+                                 # .next/static + public/ into it first
+                                 # (same steps the Dockerfile does)
+node scripts/smoke-map.mjs       # headless-Chrome smoke test (needs prod
+                                 # server on :3100, system Chrome installed)
 ```
+
+`predev`/`prebuild` run `scripts/sync-worker.mjs` — copies the installed
+maplibre worker to `public/vendor/maplibre-worker.js`. If the map renders
+blank, run `smoke-map.mjs` — it reports canvas presence, style load state,
+layer count, and every console/CSP error.
 
 ## Conventions
 

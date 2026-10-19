@@ -51,6 +51,12 @@ Sitrep is a **read-only intelligence surface** — the threat model is mostly
    downgrade `eslint-config-next` to v14 and break Next 16 linting, so we
    accept and monitor. Re-run `npm audit` on dependency updates — drop this
    note once a fix lands.
+6. **CSP wildcard footgun (learned the hard way).** `*.host` does **not**
+   cover the bare `host`. `connect-src … https://*.basemaps.cartocdn.com`
+   blocked the map's own style fetch at `basemaps.cartocdn.com` (no
+   subdomain). Both forms are now listed explicitly — keep that rule when
+   adding tile/font/CDN hosts, and verify with `node scripts/smoke-map.mjs`
+   against a prod build.
 
 ## Reporting
 

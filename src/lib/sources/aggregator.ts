@@ -1,6 +1,7 @@
 import { env } from '../env';
 import { cached } from '../cache';
 import { convergentHotspots } from '../correlate';
+import { cellKey } from '../geo';
 import type {
   Hotspot,
   MarketQuote,
@@ -157,11 +158,52 @@ export async function getSignals(): Promise<SignalPoint[]> {
       const gdelt = await cached('gdelt:doc', 12 * 60_000, 48 * 60_000, fetchGdelt).catch(
         () => null,
       );
-      if (!gdelt) return [] as SignalPoint[];
-      return gdelt.value.signals.sort((a, b) => b.weight - a.weight);
+      const gdeltSignals = gdelt?.value.signals ?? [];
+      if (gdeltSignals.length > 0) {
+        return gdeltSignals.sort((a, b) => b.weight - a.weight);
+      }
+      // GDELT rate-limits hard — fall back to tension derived from the
+      // geolocated event mix so the layer never reads empty. Points carry
+      // no `tone`, marking them as derived rather than sentiment-measured.
+      const { events } = await getEvents();
+      return deriveSignals(events);
     },
   );
   return value;
+}
+
+/**
+ * Tension fallback: weight each place by the severity/category of events
+ * pinned there (conflict & disaster count more), take a weighted centroid,
+ * cap at the heatmap's display ceiling.
+ */
+function deriveSignals(events: SitrepEvent[]): SignalPoint[] {
+  const SEV_W: Record<string, number> = { info: 1, low: 2, medium: 4, high: 8, critical: 12 };
+  const CAT_BOOST: Record<string, number> = {
+    conflict: 1.5, disaster: 1.4, humanitarian: 1.3, cyber: 1.1,
+  };
+  const cells = new Map<string, { lat: number; lon: number; wsum: number; w: number; names: Map<string, number> }>();
+  for (const e of events) {
+    if (!e.location) continue;
+    const key = cellKey(e.location.lat, e.location.lon);
+    const c = cells.get(key) ?? { lat: 0, lon: 0, wsum: 0, w: 0, names: new Map() };
+    const w = (SEV_W[e.severity] ?? 1) * (CAT_BOOST[e.category] ?? 1);
+    c.lat = (c.lat * c.w + e.location.lat * w) / (c.w + w);
+    c.lon = (c.lon * c.w + e.location.lon * w) / (c.w + w);
+    c.w += w;
+    c.wsum += w;
+    if (e.location.name) c.names.set(e.location.name, (c.names.get(e.location.name) ?? 0) + 1);
+    cells.set(key, c);
+  }
+  return [...cells.values()]
+    .map((c) => ({
+      lat: c.lat,
+      lon: c.lon,
+      name: [...c.names.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? '',
+      weight: Math.min(60, Math.round(c.wsum * 0.8)),
+    }))
+    .filter((s) => s.weight >= 3)
+    .sort((a, b) => b.weight - a.weight);
 }
 
 export async function getMarkets(): Promise<MarketQuote[]> {

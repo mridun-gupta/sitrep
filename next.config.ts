@@ -12,10 +12,11 @@ const CSP = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'", // Next inline bootstraps require unsafe-inline
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://*.openfreemap.org",
+  // NOTE: CSP wildcards (*.host) do NOT cover the bare host — list both.
+  "img-src 'self' data: blob: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://openfreemap.org https://*.openfreemap.org",
   "font-src 'self' data:",
   "worker-src 'self' blob:",
-  "connect-src 'self' data: blob: https://*.basemaps.cartocdn.com https://*.openfreemap.org https://*.supabase.co wss://*.supabase.co",
+  "connect-src 'self' data: blob: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://openfreemap.org https://*.openfreemap.org https://*.supabase.co wss://*.supabase.co",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

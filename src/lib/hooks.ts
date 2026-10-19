@@ -49,12 +49,17 @@ export function usePolling<T>(
   return { data, refreshedAt, error, refresh: () => void tick() };
 }
 
-/** Ticking clock for the header (UTC). */
-export function useNow(stepMs = 1000): number {
-  const [now, setNow] = useState(() => Date.now());
+/** Ticking clock for the header (UTC). Returns null before mount so SSR
+ *  and first client render are identical (hydration-safe). */
+export function useNow(stepMs = 1000): number | null {
+  const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
+    const raf = requestAnimationFrame(() => setNow(Date.now()));
     const t = setInterval(() => setNow(Date.now()), stepMs);
-    return () => clearInterval(t);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(t);
+    };
   }, [stepMs]);
   return now;
 }

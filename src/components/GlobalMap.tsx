@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
-import type { Map as MlMap, MapLayerMouseEvent } from 'maplibre-gl';
+import type { Map as MlMap, MapLayerMouseEvent, ErrorEvent as MlErrorEvent } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { HotspotSlim } from '@/lib/client-api';
 import type { SignalPoint, SitrepEvent } from '@/lib/types';
@@ -20,6 +20,17 @@ import { timeAgo } from '@/lib/format';
 const BASEMAP =
   process.env.NEXT_PUBLIC_BASEMAP_URL ??
   'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
+
+// Self-hosted worker: bundler path resolution for maplibre's .mjs worker is
+// unreliable across Turbopack/webpack — pin a vendored copy (scripts/sync-worker.mjs).
+const WORKER_URL = '/vendor/maplibre-worker.js';
+let workerSet = false;
+function ensureWorker() {
+  if (!workerSet) {
+    maplibregl.setWorkerUrl(WORKER_URL);
+    workerSet = true;
+  }
+}
 
 const SEV_RADIUS = ['match', ['get', 'severity'],
   'critical', 9, 'high', 7, 'medium', 5.5, 'low', 4, 3] as const;
@@ -126,6 +137,7 @@ export default function GlobalMap({
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<MlMap | null>(null);
   const [ready, setReady] = useState(false);
+  const [styleError, setStyleError] = useState(false);
   const [visible, setVisible] = useState<Record<LayerKey, boolean>>({
     events: true,
     signals: true,
@@ -135,6 +147,7 @@ export default function GlobalMap({
   // ── Init once ────────────────────────────────────────────────────
   useEffect(() => {
     if (!container.current || map.current) return;
+    ensureWorker();
     const m = new maplibregl.Map({
       container: container.current,
       style: BASEMAP,
@@ -145,6 +158,15 @@ export default function GlobalMap({
       attributionControl: { compact: true },
     });
     m.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'bottom-right');
+    // Test/debug handle (read-only use): window.__sitrepMap.isStyleLoaded()
+    (window as unknown as { __sitrepMap?: MlMap }).__sitrepMap = m;
+
+    // A blocked basemap (CSP/network) must surface, not render as a void.
+    m.on('error', (e: MlErrorEvent) => {
+      const msg = e.error?.message ?? '';
+      if (msg.includes('Failed to fetch') || msg.includes('AJAXError') || msg.includes('style'))
+        setStyleError(true);
+    });
 
     m.on('load', () => {
       m.addSource('events', {
@@ -361,6 +383,17 @@ export default function GlobalMap({
           </button>
         ))}
       </div>
+      {/* Basemap failure notice — data layers may still work */}
+      {styleError && !ready && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <div className="border border-edge bg-panel px-4 py-3 text-center">
+            <p className="font-mono text-[11px] text-sev-high">BASEMAP UNAVAILABLE</p>
+            <p className="mt-1 font-mono text-[9px] text-ink-3">
+              map style could not be fetched — check network/CSP
+            </p>
+          </div>
+        </div>
+      )}
       {/* Vignette */}
       <div
         className="pointer-events-none absolute inset-0"

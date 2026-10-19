@@ -56,7 +56,7 @@ export const OPENAPI_SPEC = {
       get: { summary: 'Cross-source correlation hotspots', parameters: [{ name: 'limit', in: 'query', schema: { type: 'integer', default: 100 } }], responses: { '200': { description: 'Hotspot[]' } } },
     },
     '/signals': {
-      get: { summary: 'News tension localities (GDELT-derived)', parameters: [{ name: 'limit', in: 'query', schema: { type: 'integer', default: 100 } }], responses: { '200': { description: 'SignalPoint[]' } } },
+      get: { summary: 'News tension localities (GDELT tone; falls back to event-density derivation)', parameters: [{ name: 'limit', in: 'query', schema: { type: 'integer', default: 100 } }], responses: { '200': { description: 'SignalPoint[]' } } },
     },
     '/markets': {
       get: { summary: 'Market radar (crypto + indices)', responses: { '200': { description: 'MarketQuote[]' } } },
