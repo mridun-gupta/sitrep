@@ -22,15 +22,17 @@
 
 <p align="center">
   <b>Deploy your own:</b>
-  <a href="https://vercel.com/new/clone?repository-url=https://github.com/OWNER/REPO"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="28" /></a>
-  <a href="https://railway.com/new/template?template=https://github.com/OWNER/REPO"><img src="https://img.shields.io/badge/Deploy-Railway-0B0D0E?logo=railway" alt="Deploy on Railway" height="28" /></a>
-  <a href="https://render.com/deploy?repo=https://github.com/OWNER/REPO"><img src="https://img.shields.io/badge/Deploy-Render-46E3B7?logo=render&logoColor=black" alt="Deploy to Render" height="28" /></a>
+  <a href="https://vercel.com/new/clone?repository-url=https://github.com/mridun-gupta/sitrep"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="28" /></a>
+  <a href="https://railway.com/new/template?template=https://github.com/mridun-gupta/sitrep"><img src="https://img.shields.io/badge/Deploy-Railway-0B0D0E?logo=railway" alt="Deploy on Railway" height="28" /></a>
+  <a href="https://render.com/deploy?repo=https://github.com/mridun-gupta/sitrep"><img src="https://img.shields.io/badge/Deploy-Render-46E3B7?logo=render&logoColor=black" alt="Deploy to Render" height="28" /></a>
   <a href="Dockerfile"><img src="https://img.shields.io/badge/Docker-self--host-2496ED?logo=docker&logoColor=white" alt="Docker" height="28" /></a>
 </p>
 
-> **Note:** replace `OWNER/REPO` in the deploy buttons with your repo path
-> after pushing to GitHub. Everything works out of the box — no API keys
-> required.
+<p align="center">
+  <b>Live demo → <a href="https://sitrep-lime.vercel.app">sitrep-lime.vercel.app</a></b>
+</p>
+
+> Everything works out of the box — no API keys required.
 
 ---
 
@@ -54,7 +56,7 @@ Env-gated additions: NewsAPI · ACLED · ReliefWeb · Supabase · LLM endpoint.
 ## Quick start
 
 ```bash
-git clone https://github.com/OWNER/REPO sitrep && cd sitrep
+git clone https://github.com/mridun-gupta/sitrep sitrep && cd sitrep
 npm ci && npm run dev        # → http://localhost:3000
 ```
 
