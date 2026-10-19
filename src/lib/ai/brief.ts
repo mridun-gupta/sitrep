@@ -1,5 +1,7 @@
 import { env, isAiConfigured } from '../env';
+import { cached } from '../cache';
 import { truncate } from '../geo';
+import { getEvents, getNews } from '../sources/aggregator';
 import type { SitrepBrief, SitrepEvent, NewsItem } from '../types';
 import { z } from 'zod';
 
@@ -25,6 +27,19 @@ const BriefSchema = z.object({
     )
     .max(5),
 });
+
+/**
+ * Shared cached brief — the only entry point callers should use.
+ * One cache key ('brief:latest', 10m fresh / 40m stale) serves the page,
+ * REST and MCP consumers, so a request burst can never fan out into
+ * repeated paid LLM calls.
+ */
+export function getBrief() {
+  return cached('brief:latest', 10 * 60_000, 40 * 60_000, async () => {
+    const [{ events }, news] = await Promise.all([getEvents(), getNews()]);
+    return generateBrief(events, news);
+  });
+}
 
 export async function generateBrief(
   events: SitrepEvent[],

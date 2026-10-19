@@ -1,6 +1,7 @@
 import { createMcpHandler } from 'mcp-handler';
 import { z } from 'zod';
-import { generateBrief } from '@/lib/ai/brief';
+import { getBrief } from '@/lib/ai/brief';
+import { limited } from '@/lib/api';
 import {
   getEvents,
   getMarkets,
@@ -158,10 +159,21 @@ const handler = createMcpHandler((server) => {
       annotations: { readOnlyHint: true },
     },
     async () => {
-      const [{ events }, news] = await Promise.all([getEvents(), getNews()]);
-      return asText(await generateBrief(events, news));
+      const { value } = await getBrief();
+      return asText(value);
     },
   );
-});
+}, { serverInfo: { name: 'sitrep', version: '0.1.0' } });
 
-export { handler as GET, handler as POST };
+/**
+ * Rate-limit the whole MCP surface (default 60 req/min/IP). Individual
+ * tools only read shared caches — but brief generation can call a paid
+ * LLM, so the endpoint gets the same throttle treatment as the REST API.
+ */
+async function guarded(req: Request) {
+  const throttle = limited(req);
+  if (throttle) return throttle;
+  return handler(req);
+}
+
+export { guarded as GET, guarded as POST };

@@ -1,5 +1,5 @@
 import { Dashboard, type InitialData } from '@/components/Dashboard';
-import { generateBrief } from '@/lib/ai/brief';
+import { getBrief } from '@/lib/ai/brief';
 import { isAiConfigured, isSupabaseConfigured } from '@/lib/env';
 import {
   getEvents,
@@ -35,7 +35,7 @@ export default async function Page() {
 
   let brief = null;
   try {
-    brief = await generateBrief(events, news);
+    brief = (await getBrief()).value;
   } catch {
     /* brief is best-effort at first paint */
   }
