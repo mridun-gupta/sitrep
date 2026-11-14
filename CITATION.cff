@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Gupta"
+  given-names: "Mridun"
+  orcid: "https://orcid.org/0009-0004-7262-811X"
+title: "sitrep"
+version: 1.0.0
+date-released: 2026-11-14
+url: "https://github.com/mridun-gupta/sitrep"

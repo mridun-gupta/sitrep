@@ -1,0 +1,16 @@
+name: Sponsorship / funding question
+description: Report a problem with a sponsorship method or ask about another way to sponsor
+title: "[funding] "
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        All sponsorship methods — UPI, PayPal, USDT/USDC, Binance ID and more — are kept up to date at https://www.mridungupta.eu.org/fund/
+  - type: textarea
+    id: issue
+    attributes:
+      label: What's the problem?
+      description: e.g. a listed method doesn't work for you, or you'd like to sponsor another way
+    validations:
+      required: true
