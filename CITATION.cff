@@ -6,5 +6,6 @@ authors:
   orcid: "https://orcid.org/0009-0004-7262-811X"
 title: "sitrep"
 version: 1.0.0
+doi: 10.5281/zenodo.24224510
 date-released: 2026-11-14
 url: "https://github.com/mridun-gupta/sitrep"
