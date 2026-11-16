@@ -35,7 +35,7 @@
     "puppeteer-core": "^25.14.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   },
   "description": "Real-time global intelligence dashboard — open-source OSINT situational awareness",
   "license": "AGPL-3.0-only",
