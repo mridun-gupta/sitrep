@@ -1,0 +1,8 @@
+title: Sitrep Documentation
+description: Four-tier knowledge base for the Sitrep open-source OSINT console
+theme: jekyll-theme-cayman
+baseurl: /sitrep
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+markdown: GFM
